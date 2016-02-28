@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task2
 {
-    class Fish : ICompanionAnimal
+    class Fish : Animal, ICompanionAnimal
     {
-        /// <summary>
-        /// Voice of the Fish
-        /// </summary>
-        private string voice;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Fish"/> class.
         /// </summary>
@@ -28,24 +19,10 @@ namespace Task2
         /// <param name="age">Age of the Fish.</param>
         /// <param name="name">Name of the Fish.</param>
         public Fish(string color, int age, string name)
+            : base(name, color, age, "blub..")
         {
-            this.Color = color;
-            this.Age = age;
-            this.Name = name;
-            this.voice = "blub.. ";
-            this.IsHungry = true;
             this.IsEnvironmentClean = true;
         }
-
-        /// <summary>
-        /// Gets the fur Color of the Fish.
-        /// </summary>
-        public string Color { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether the Fish is hungry or not.
-        /// </summary>
-        public bool IsHungry { get; private set; }
 
         /// <summary>
         /// Gets a value indication whether the Environment of the Fish is clean or not.
@@ -53,26 +30,24 @@ namespace Task2
         public bool IsEnvironmentClean { get; private set; }
 
         /// <summary>
-        /// Gets the Age of the Fish.
+        /// Feeds the fish.
         /// </summary>
-        public int Age { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the name of the Fish.
-        /// </summary>
-        public string Name { get; set; }
-
+        /// <returns></returns>
         public string Feed()
         {
             if (IsHungry)
             {
                 this.IsHungry = false;
-                return voice;
+                return GetVoice();
             }
             this.IsEnvironmentClean = false;
             return "the fish is looking at you, then it swims away.";
         }
 
+        /// <summary>
+        /// Pets the fish.
+        /// </summary>
+        /// <returns></returns>
         public string Pet()
         {
             return "The fish bites you!";

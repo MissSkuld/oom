@@ -74,7 +74,7 @@ namespace Task2
                 Console.WriteLine(companion);
             }
 
-            Console.ReadLine();
+            // Console.ReadLine();
         }
     }
 }

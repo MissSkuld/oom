@@ -19,18 +19,13 @@ namespace Task2
     /// <summary>
     /// Represents a virtual Cat. Meow.
     /// </summary>
-    public class Cat : ICompanionAnimal
+    public class Cat : Animal, ICompanionAnimal
 
     {
         /// <summary>
         /// Actual mood of the Cat.
         /// </summary>
         private Mood mood;
-
-        /// <summary>
-        /// Voice of the cat
-        /// </summary>
-        private string voice;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Cat"/> class. All Cats are grey!! 
@@ -59,42 +54,16 @@ namespace Task2
         /// The peculiarities.
         /// </param>
         public Cat(string color, int age, string name, List<string> peculiarities = null)
+            : base(name, color, age, "Meow!")
         {
-            this.Color = color;
-            this.Age = age;
-            this.Name = name;
-
             this.Peculiarities = peculiarities ?? new List<string>();
-
-            this.IsHungry = true;
             this.mood = Mood.Awake;
-            this.voice = "Meow!";
         }
-
-        /// <summary>
-        /// Gets the fur Color of the Cat.
-        /// </summary>
-        public string Color { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether the Cat is hungry or not.
-        /// </summary>
-        public bool IsHungry { get; private set; }
-
-        /// <summary>
-        /// Gets the Age of the Cat.
-        /// </summary>
-        public int Age { get; private set; }
 
         /// <summary>
         /// Gets or sets the Peculiarities of the Cat.
         /// </summary>
         public List<string> Peculiarities { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the Cat.
-        /// </summary>
-        public string Name { get; set; }
 
         /// <summary>
         /// Feed the Cat.
@@ -104,7 +73,7 @@ namespace Task2
         {
             this.IsHungry = false;
             this.mood = Mood.Sleepy;
-            return voice;
+            return GetVoice();
         }
 
         /// <summary>
@@ -116,11 +85,10 @@ namespace Task2
             if (this.mood != Mood.Sleepy)
             {
                 this.mood = Mood.Happy;
-                return voice;
+                return GetVoice();
             }
 
             return $"{this.Name} doesn't want to be pet and scratches you instead!{Environment.NewLine}";
-
         }
 
         /// <summary>
@@ -141,7 +109,7 @@ namespace Task2
 
                 this.mood = Mood.Happy;
 
-                return voice;
+                return GetVoice();
             }
             else
             {
