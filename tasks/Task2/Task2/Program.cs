@@ -15,6 +15,12 @@ namespace Task2
             litter.Add(new Cat("red", 16, "Felix", new List<string> { "Needs a pillow for sleeping.", "Thinks humans can turn the rain on and off" }));
             litter.Add(new Cat("white", 5, "Karl"));
 
+            // Create some Fishes
+            var fishes = new List<Fish>();
+            fishes.Add(new Fish("Gustav"));
+            fishes.Add(new Fish("red-white", 2, "Nemo"));
+            fishes.Add(new Fish("blue", 5, "Dora"));
+
             // Displays Information about all Cats
             foreach (var cat in litter)
             {
@@ -48,7 +54,27 @@ namespace Task2
                 Console.WriteLine(cat);
             }
 
-            // Console.ReadLine();
+            // Create new List containing fishes and Cats
+            List<ICompanionAnimal> companions = new List<ICompanionAnimal>();
+            companions.AddRange(litter);
+            companions.AddRange(fishes);
+
+            foreach (var companion in companions)
+            {
+                Console.WriteLine(companion);
+            }
+
+            foreach (var companion in companions)
+            {
+                companion.Feed();
+            }
+
+            foreach (var companion in companions)
+            {
+                Console.WriteLine(companion);
+            }
+
+            Console.ReadLine();
         }
     }
 }

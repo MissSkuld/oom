@@ -19,7 +19,8 @@ namespace Task2
     /// <summary>
     /// Represents a virtual Cat. Meow.
     /// </summary>
-    public class Cat
+    public class Cat : ICompanionAnimal
+
     {
         /// <summary>
         /// Actual mood of the Cat.
@@ -44,7 +45,6 @@ namespace Task2
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Cat"/> class. 
-        /// Creates a instance of a Cat.
         /// </summary>
         /// <param name="color">
         /// Fur color.
