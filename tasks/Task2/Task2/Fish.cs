@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Task2
 {
@@ -18,6 +19,7 @@ namespace Task2
         /// <param name="color">Color of the Fish.</param>
         /// <param name="age">Age of the Fish.</param>
         /// <param name="name">Name of the Fish.</param>
+        [JsonConstructor]
         public Fish(string color, int age, string name)
             : base(name, color, age, "blub..")
         {

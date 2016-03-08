@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -53,6 +54,7 @@ namespace Task2
         /// <param name="peculiarities">
         /// The peculiarities.
         /// </param>
+        [JsonConstructor]
         public Cat(string color, int age, string name, List<string> peculiarities = null)
             : base(name, color, age, "Meow!")
         {

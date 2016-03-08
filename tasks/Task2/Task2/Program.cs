@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Task2
@@ -74,7 +76,25 @@ namespace Task2
                 Console.WriteLine(companion);
             }
 
-            // Console.ReadLine();
+            var settings = new JsonSerializerSettings()
+            {
+                Formatting = Formatting.Indented,
+                TypeNameHandling = TypeNameHandling.Auto
+            };
+
+            var filename = "companions.json";
+
+            File.WriteAllText(filename, JsonConvert.SerializeObject(companions, settings));
+
+            List<ICompanionAnimal> animals = JsonConvert.DeserializeObject<List<ICompanionAnimal>>(File.ReadAllText(filename), settings);
+            
+            Console.WriteLine("Companions after deserializing:");
+            foreach (var companion in companions)
+            {
+                Console.WriteLine(companion);
+            }
+
+            //Console.ReadLine();
         }
     }
 }
