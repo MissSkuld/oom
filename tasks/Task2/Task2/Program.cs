@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 namespace Task2
 {
@@ -92,6 +94,18 @@ namespace Task2
             foreach (var companion in companions)
             {
                 Console.WriteLine(companion);
+            }
+
+            // Reactive Things
+
+            var producer = new Subject<Cat>();//.Where(x => x.Age == 1).ToList();
+
+            producer.Subscribe(cat => Console.WriteLine($"received value {cat}"));
+
+            foreach (var cat in litter)
+            {
+                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
+                producer.OnNext(cat); // push value i to subscribers
             }
 
             //Console.ReadLine();
