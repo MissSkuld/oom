@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Task2
 {
@@ -63,6 +65,7 @@ namespace Task2
             companions.AddRange(litter);
             companions.AddRange(fishes);
 
+            // Does some stuff
             foreach (var companion in companions)
             {
                 Console.WriteLine(companion);
@@ -78,6 +81,7 @@ namespace Task2
                 Console.WriteLine(companion);
             }
 
+            // Json things...
             var settings = new JsonSerializerSettings()
             {
                 Formatting = Formatting.Indented,
@@ -96,19 +100,52 @@ namespace Task2
                 Console.WriteLine(companion);
             }
 
+            // Tasks
+            var tasks = new List<Task<Cat>>();
+            Random r = new Random();
+
+            foreach (var cat in litter)
+            {
+                var task = Task.Run(() =>
+                {
+                    Console.WriteLine($"This is {cat.Name}");
+                    cat.Feed();
+                    Task.Delay(1000 + r.Next(10) * 1000);
+                    Console.WriteLine($"You tried to feed {cat.Name}");
+                    return cat;
+                });
+
+                tasks.Add(task);
+            }
+
+            Console.WriteLine("VERY VERY VERY IMPORTANT THINGS ARE HAPPENING HERE, UNTIL THE PROGRAMM CONTINUES... ;)");
+
+            Thread.Sleep(10000);
+
+            var moreTasks = new List<Task<Cat>>();
+
+            foreach (var task in tasks.ToArray())
+            {
+                moreTasks.Add(task.ContinueWith(t => 
+                {
+                    Console.WriteLine($"Result of what you have done: '{t.Result}'");
+                    return t.Result;
+                }));
+            }
+
+
             // Reactive Things
+            var producer = new Subject<Cat>();//.Where(x => x.Age == 1).ToList(); // gleichzeitig Observable und Observer
 
-            var producer = new Subject<Cat>();//.Where(x => x.Age == 1).ToList();
-
-            producer.Subscribe(cat => Console.WriteLine($"received value {cat}"));
+            producer.Subscribe(cat => Console.WriteLine($"received cat: {cat}"));
 
             foreach (var cat in litter)
             {
                 System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
-                producer.OnNext(cat); // push value i to subscribers
+                producer.OnNext(cat); // push a cat to subscribers
             }
 
-            //Console.ReadLine();
+            Console.ReadLine();
         }
     }
 }
